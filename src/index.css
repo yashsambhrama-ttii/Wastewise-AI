@@ -1,0 +1,41 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    color-scheme: dark;
+    --bg-app: #0B0D0F;
+    --surface-primary: #111417;
+    --surface-secondary: #171B1F;
+    --surface-elevated: #1C2126;
+    --border-subtle: #272D33;
+    --text-primary: #F1F3F4;
+    --text-secondary: #9AA3AD;
+    --text-muted: #68717B;
+    --accent-green: #10B981;
+  }
+
+  body {
+    background-color: #0B0D0F;
+    color: #F1F3F4;
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  }
+}
+
+/* Custom Sleek Dark Control Room Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0B0D0F;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #272D33;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #374151;
+}

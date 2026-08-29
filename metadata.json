@@ -1,0 +1,6 @@
+{
+  "name": "WasteWise AI",
+  "description": "AI-powered municipal waste management platform predicting waste accumulation, overflow risk, and optimized collection schedules and routes.",
+  "requestFramePermissions": ["geolocation"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

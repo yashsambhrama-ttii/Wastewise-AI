@@ -1,0 +1,43 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Default catch-all deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() > 0 && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    // Waste Bins: Municipal readers can read telemetry, logged-in municipal staff/drivers can update fill and status
+    match /wasteBins/{binId} {
+      allow read: if true;
+      allow write: if isSignedIn() && isValidId(binId);
+    }
+
+    // Collection Routes: Drivers and dispatchers can view and update route status
+    match /collectionRoutes/{routeId} {
+      allow read: if true;
+      allow write: if isSignedIn() && isValidId(routeId);
+    }
+
+    // Citizen Reports: Citizens can submit reports, municipal staff can manage & update status
+    match /citizenReports/{reportId} {
+      allow read: if true;
+      allow create: if isValidId(reportId) &&
+        request.resource.data.description is string &&
+        request.resource.data.description.size() <= 1000;
+      allow update, delete: if isSignedIn() && isValidId(reportId);
+    }
+
+    // Connection test document
+    match /test/connection {
+      allow read, write: if true;
+    }
+  }
+}

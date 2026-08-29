@@ -1,0 +1,78 @@
+{
+  "entities": {
+    "wasteBins": {
+      "title": "Waste Bin",
+      "description": "Smart IoT-monitored waste bin with fill sensors and predictive metrics",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 64 },
+        "name": { "type": "string", "maxLength": 128 },
+        "areaId": { "type": "string", "maxLength": 64 },
+        "areaName": { "type": "string", "maxLength": 128 },
+        "type": { "type": "string", "enum": ["general", "recyclable", "organic", "hazardous", "electronic"] },
+        "capacityLiters": { "type": "number" },
+        "currentFillPercent": { "type": "number" },
+        "predictedFillPercent": { "type": "number" },
+        "overflowRisk": { "type": "string", "enum": ["LOW", "MODERATE", "HIGH", "CRITICAL"] },
+        "status": { "type": "string", "enum": ["optimal", "moderate", "high", "overflow", "damaged", "maintenance"] },
+        "lastCollectionTime": { "type": "string" },
+        "recommendedCollectionTime": { "type": "string" },
+        "priorityScore": { "type": "number" },
+        "sensorBattery": { "type": "number" },
+        "temperatureC": { "type": "number" }
+      },
+      "required": ["id", "name", "areaId", "currentFillPercent", "overflowRisk", "status"]
+    },
+    "collectionRoutes": {
+      "title": "Collection Route",
+      "description": "Optimized multi-stop municipal collection route assigned to a driver and vehicle",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 64 },
+        "name": { "type": "string", "maxLength": 128 },
+        "areaId": { "type": "string", "maxLength": 64 },
+        "assignedDriverId": { "type": "string", "maxLength": 64 },
+        "assignedDriverName": { "type": "string", "maxLength": 128 },
+        "vehiclePlate": { "type": "string", "maxLength": 32 },
+        "status": { "type": "string", "enum": ["SCHEDULED", "IN_PROGRESS", "COMPLETED", "DELAYED"] },
+        "priority": { "type": "string", "enum": ["NORMAL", "HIGH", "URGENT"] },
+        "totalDistanceKm": { "type": "number" },
+        "estimatedTimeMinutes": { "type": "number" },
+        "co2SavingsKg": { "type": "number" },
+        "completedStopsCount": { "type": "number" }
+      },
+      "required": ["id", "name", "areaId", "assignedDriverId", "status"]
+    },
+    "citizenReports": {
+      "title": "Citizen Report",
+      "description": "Public hazard and bin overflow report submitted by citizens",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 64 },
+        "reportType": { "type": "string", "enum": ["overflow", "damaged", "illegal_dumping", "odor_hazard"] },
+        "areaName": { "type": "string", "maxLength": 128 },
+        "description": { "type": "string", "maxLength": 1000 },
+        "photoUrl": { "type": "string", "maxLength": 2048 },
+        "status": { "type": "string", "enum": ["PENDING_REVIEW", "VERIFIED", "DISPATCHED", "RESOLVED"] },
+        "urgency": { "type": "string", "enum": ["low", "medium", "high", "critical"] },
+        "timestamp": { "type": "string" },
+        "reportedBy": { "type": "string", "maxLength": 128 }
+      },
+      "required": ["id", "reportType", "description", "status", "timestamp"]
+    }
+  },
+  "firestore": {
+    "/wasteBins/{binId}": {
+      "schema": { "$ref": "#/entities/wasteBins" },
+      "description": "Smart waste bins across municipal zones"
+    },
+    "/collectionRoutes/{routeId}": {
+      "schema": { "$ref": "#/entities/collectionRoutes" },
+      "description": "Assigned collection routes for drivers"
+    },
+    "/citizenReports/{reportId}": {
+      "schema": { "$ref": "#/entities/citizenReports" },
+      "description": "Public hazard and overflow reporting submissions"
+    }
+  }
+}
