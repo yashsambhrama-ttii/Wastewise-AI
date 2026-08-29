@@ -761,6 +761,113 @@ export const CitizenPortal: React.FC<CitizenPortalProps> = ({
           )}
         </div>
       )}
+      {/* CITIZEN PORTAL NAVIGATION */}
+<nav className="sticky top-0 z-50 bg-[#0D1012]/95 backdrop-blur-md border-b border-[#272D33]">
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3">
+    <div className="flex items-center justify-between">
+
+      {/* Logo */}
+      <button
+        onClick={() => setActiveTab('home')}
+        className="flex items-center gap-3 cursor-pointer"
+      >
+        <div className="w-9 h-9 rounded-xl bg-emerald-950 border border-emerald-700 flex items-center justify-center">
+          <Trash2 className="w-5 h-5 text-emerald-400" />
+        </div>
+
+        <div className="hidden sm:block text-left">
+          <div className="text-sm font-bold text-[#F1F3F4]">
+            WasteWise AI
+          </div>
+          <div className="text-[10px] text-[#68717B]">
+            Citizen Portal
+          </div>
+        </div>
+      </button>
+
+      {/* Navigation */}
+      <div className="flex items-center gap-1 bg-[#111417] p-1 rounded-xl border border-[#272D33]">
+
+        <button
+          onClick={() => setActiveTab('home')}
+          className={`px-3 py-2 rounded-lg text-xs font-semibold flex items-center gap-2 transition-all ${
+            activeTab === 'home'
+              ? 'bg-[#272D33] text-white'
+              : 'text-[#9AA3AD] hover:text-white'
+          }`}
+        >
+          <Home className="w-3.5 h-3.5" />
+          <span className="hidden md:inline">Home</span>
+        </button>
+
+        <button
+          onClick={() => setActiveTab('report')}
+          className={`px-3 py-2 rounded-lg text-xs font-semibold flex items-center gap-2 transition-all ${
+            activeTab === 'report'
+              ? 'bg-[#272D33] text-white'
+              : 'text-[#9AA3AD] hover:text-white'
+          }`}
+        >
+          <Send className="w-3.5 h-3.5 text-emerald-400" />
+          <span className="hidden md:inline">Report</span>
+        </button>
+
+        <button
+          onClick={() => setActiveTab('myReports')}
+          className={`px-3 py-2 rounded-lg text-xs font-semibold flex items-center gap-2 transition-all ${
+            activeTab === 'myReports'
+              ? 'bg-[#272D33] text-white'
+              : 'text-[#9AA3AD] hover:text-white'
+          }`}
+        >
+          <ClipboardList className="w-3.5 h-3.5" />
+          <span className="hidden md:inline">My Reports</span>
+        </button>
+
+        <button
+          onClick={() => setActiveTab('feed')}
+          className={`px-3 py-2 rounded-lg text-xs font-semibold flex items-center gap-2 transition-all ${
+            activeTab === 'feed'
+              ? 'bg-[#272D33] text-white'
+              : 'text-[#9AA3AD] hover:text-white'
+          }`}
+        >
+          <Eye className="w-3.5 h-3.5 text-sky-400" />
+          <span className="hidden md:inline">City Feed</span>
+        </button>
+
+        <button
+          onClick={() => setActiveTab('help')}
+          className={`px-3 py-2 rounded-lg text-xs font-semibold flex items-center gap-2 transition-all ${
+            activeTab === 'help'
+              ? 'bg-[#272D33] text-white'
+              : 'text-[#9AA3AD] hover:text-white'
+          }`}
+        >
+          <CircleHelp className="w-3.5 h-3.5" />
+          <span className="hidden md:inline">Help</span>
+        </button>
+      </div>
+
+      {/* Profile */}
+      <div className="flex items-center gap-2">
+        <div className="hidden sm:block text-right">
+          <div className="text-xs font-semibold text-[#F1F3F4]">
+            {user?.displayName || 'Citizen'}
+          </div>
+          <div className="text-[10px] text-[#68717B]">
+            Verified Citizen
+          </div>
+        </div>
+
+        <div className="w-9 h-9 rounded-full bg-[#171B1F] border border-[#272D33] flex items-center justify-center">
+          <User className="w-4 h-4 text-emerald-400" />
+        </div>
+      </div>
+
+    </div>
+  </div>
+</nav>
     </div>
   );
 };
